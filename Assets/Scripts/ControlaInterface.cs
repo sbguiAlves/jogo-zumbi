@@ -11,10 +11,12 @@ public class ControlaInterface : MonoBehaviour
     public GameObject PainelDeGameOver;
     public Text TextoTempoDeSobrevivencia;
     public Text TextoPontuacaoMaxima;
+    public Text TextoQuantidadeZumbisMortos;
 
     private float tempoPontuacaoSalva;
+    private int quantidadeDeZumbisMortos = 0;
 
-    /* Boa prática: começar variaveis com o tipo dela (quando não é float, int, etc.)
+    /* Boa prática: começar variaveis com o tipo dela (quando náo é float, int, etc.)
     */
 
     void Start()
@@ -31,6 +33,12 @@ public class ControlaInterface : MonoBehaviour
     public void AtualizarSliderVidaJogador()
     {
         SliderVidaJogador.value = scriptControlaJogador.statusJogador.Vida;
+    }
+
+    public void AtualizarQuantidadeDeZumbisMortos()
+    {
+        quantidadeDeZumbisMortos++;
+        TextoQuantidadeZumbisMortos.text = string.Format("x {0}", quantidadeDeZumbisMortos);
     }
 
     public void GameOver()

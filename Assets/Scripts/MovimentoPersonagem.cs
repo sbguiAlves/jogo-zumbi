@@ -32,4 +32,14 @@ public class MovimentoPersonagem : MonoBehaviour
         meuRigidbody.MoveRotation(novaRotacao);
     }
 
+    public void Morrer()
+    {
+        //eu prefiro fazer um pop no inimigo quando ele tiver no chão. Aqui ele tá sumindo pra baixo
+        //ou ele cai e dps de um tempo ele disolve pra baixo, muitas possibilidades hmmm
+        meuRigidbody.constraints = RigidbodyConstraints.None;
+        meuRigidbody.velocity = Vector3.zero;
+        meuRigidbody.isKinematic = false; //pra gravidade funcionar
+        GetComponent<Collider>().enabled = false;
+    }
+
 }

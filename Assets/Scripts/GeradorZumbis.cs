@@ -11,11 +11,20 @@ public class GeradorZumbis : MonoBehaviour
     private float distanciaDeSpawn = 3;
     private float contadorTempo = 0;
     private float distanciaDoJogadorParaSpawn = 20;
+    private int quantidadeMaximaZumbisVivos = 2;
+    private int quantidadeDeZumbisVivos;
     private GameObject jogador;
+    private float tempoProximoAumentoDeDificuldade = 30; //de 30 em 30 segundos
+    private float contadorAumentarDificuldade;
 
     private void Start()
     {
         jogador = GameObject.FindWithTag(Tags.Jogador);
+        contadorAumentarDificuldade = tempoProximoAumentoDeDificuldade;
+        for (int i = 0; i < quantidadeMaximaZumbisVivos; i++)
+        {
+            StartCoroutine(GerarNovoZumbi());
+        }
     }
 
     /*  ----------- PRÁTICAS DE OTIMIZAÇÃO EM UNITY -----------
@@ -29,8 +38,11 @@ public class GeradorZumbis : MonoBehaviour
 
     void Update()
     {
-        if (Vector3.Distance(transform.position, jogador.transform.position) >
-            distanciaDoJogadorParaSpawn)
+        bool possoGerarZumbisPelaDistancia = Vector3.Distance(transform.position, jogador.transform.position) >
+            distanciaDoJogadorParaSpawn;
+
+        if (possoGerarZumbisPelaDistancia == true && quantidadeDeZumbisVivos <
+            quantidadeMaximaZumbisVivos)
         {
             contadorTempo += Time.deltaTime; //tempo em segundos
 
@@ -39,6 +51,14 @@ public class GeradorZumbis : MonoBehaviour
                 StartCoroutine(GerarNovoZumbi());
                 contadorTempo = 0;
             }
+        }
+
+        //contador alternativo
+        if(Time.timeSinceLevelLoad > contadorAumentarDificuldade)
+        {
+            quantidadeMaximaZumbisVivos++;
+            contadorAumentarDificuldade = Time.timeSinceLevelLoad +
+                tempoProximoAumentoDeDificuldade;
         }
     }
 
@@ -81,7 +101,18 @@ public class GeradorZumbis : MonoBehaviour
             yield return null;
         }
 
-        Instantiate(Zumbi, posicaoDeCriacao, transform.rotation);
+        /*  - Cada gerador vai cuidar dos seus zumbis e verificar se deve
+            ou não criar mais.
+            - Então atrelamos o zumbi ao gerador, criando uma variável no 
+            script de ControlaInimigo que guarda o gerador daquele zumbi
+            - A variável será pública, porque preenchemos essa variável
+            no momento que criamos o zumbi no script GeradorZumbis */
+        ControlaInimigo zumbi = Instantiate(Zumbi, posicaoDeCriacao, transform.rotation).GetComponent<ControlaInimigo>();
+
+        /*  - No momento em que o zumbi é criado, guarda-se seu script
+        de ControlaInimigo */
+        zumbi.meuGerador = this; 
+        quantidadeDeZumbisVivos++;
     }
 
     Vector3 AleatorizarPosicao()
@@ -91,5 +122,10 @@ public class GeradorZumbis : MonoBehaviour
         posicao.y = 0;
 
         return posicao;
+    }
+
+    public void DiminuirQuantidadeZumbisVivos()
+    {
+        quantidadeDeZumbisVivos--;
     }
 }

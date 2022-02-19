@@ -29,9 +29,15 @@ public class Bala : MonoBehaviour
         /*  - Quando um Trigger bate em um objeto, o método a seguir é chamado, retornando ao qual objeto colidiu.            */ 
     void OnTriggerEnter(Collider objetoDeColisao)
     {
-        if(objetoDeColisao.tag == "Inimigo") //Utilizar tags nos objetos permite que a destruição aconteça apenas com tag "Inimigo"
+        switch(objetoDeColisao.tag) //Utilizar tags nos objetos permite que a destruição aconteça apenas com tag "Inimigo"
         {
-           objetoDeColisao.GetComponent<ControlaInimigo>().TomarDano(DanoDaBala);
+            case Tags.Inimigo:
+                objetoDeColisao.GetComponent<ControlaInimigo>().TomarDano(DanoDaBala);
+            break;
+
+            case Tags.ChefeDeFase:
+                objetoDeColisao.GetComponent<ControlaChefe>().TomarDano(DanoDaBala);
+            break;
         }
 
         Destroy(gameObject);//destruir apenas a bala e não os objetos que entrou em contato.

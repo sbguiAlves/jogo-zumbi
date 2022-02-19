@@ -9,6 +9,9 @@ public class ControlaInimigo : MonoBehaviour, IMatavel
 
     public AudioClip SomDeMorte;
 
+    [HideInInspector]
+    public GeradorZumbis meuGerador;
+
     public int TamanhoDaEsfera = 10;
 
     private Vector3 posicaoAleatoria;
@@ -17,7 +20,7 @@ public class ControlaInimigo : MonoBehaviour, IMatavel
     private float tempoEntrePosicoesAleatorias = 4;
     private float porcentagemGerarKitMedico = 0.1f; //10%
     
-
+    private ControlaInterface scriptControlaInterface;
     private AnimacaoPersonagem animacaoInimigo;
     private MovimentoPersonagem movimentaInimigo;
     private Status statusInimigo;  
@@ -30,6 +33,9 @@ public class ControlaInimigo : MonoBehaviour, IMatavel
 
         AleatorizarZumbi();
         Jogador = GameObject.FindWithTag(Tags.Jogador);//procurar jogador pela tag
+
+        //FindObjectOfType busca o objeto pelo tipo, sendo convertido para script
+        scriptControlaInterface = GameObject.FindObjectOfType(typeof(ControlaInterface)) as ControlaInterface;
     }
 
     void FixedUpdate()
@@ -67,7 +73,7 @@ public class ControlaInimigo : MonoBehaviour, IMatavel
         if(contadorVagar <= 0)
         {
             posicaoAleatoria = AleatorizarPosicao();
-            contadorVagar += tempoEntrePosicoesAleatorias;
+            contadorVagar += tempoEntrePosicoesAleatorias + Random.Range(-1f, 1f); // aleatoridade de duração de movimento pra cada zumbi
         }
 
         /* Obs.: A game engine não é capaz de calcular com exatidão a diferença de posição atual
@@ -105,7 +111,7 @@ public class ControlaInimigo : MonoBehaviour, IMatavel
 
     void AleatorizarZumbi()
     {
-        int geraTipoZumbi = Random.Range(1, 28);
+        int geraTipoZumbi = Random.Range(1, transform.childCount);
         transform.GetChild(geraTipoZumbi).gameObject.SetActive(true); //achei um dos filhos em Zumbi e ativar um dos tipos.
     }
 
@@ -118,9 +124,15 @@ public class ControlaInimigo : MonoBehaviour, IMatavel
 
     public void Morrer()
     {
-        Destroy(gameObject); //o objeto que a bala entrar em contato é destruído
+        Destroy(gameObject, 2); //o objeto que a bala entrar em contato é destruído
+        animacaoInimigo.Morrer();
+        movimentaInimigo.Morrer();
+        this.enabled = false;
+
         ControlaAudio.instancia.PlayOneShot(SomDeMorte);
         VerificarGeracaoKitMedico(porcentagemGerarKitMedico);
+        scriptControlaInterface.AtualizarQuantidadeDeZumbisMortos();
+        meuGerador.DiminuirQuantidadeZumbisVivos();
     }
 
     void VerificarGeracaoKitMedico(float porcentagemGeracao)

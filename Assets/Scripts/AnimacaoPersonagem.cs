@@ -21,4 +21,9 @@ public class AnimacaoPersonagem : MonoBehaviour
         meuAnimator.SetFloat("Movendo", valorDeMovimento); // Texto idêntico ao parâmetro do Animator
     }
 
+    public void Morrer()
+    {
+        meuAnimator.SetTrigger("Morrer");
+    }
+
 }
