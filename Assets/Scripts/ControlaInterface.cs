@@ -12,6 +12,7 @@ public class ControlaInterface : MonoBehaviour
     public Text TextoTempoDeSobrevivencia;
     public Text TextoPontuacaoMaxima;
     public Text TextoQuantidadeZumbisMortos;
+    public Text TextoChefeAparece;
 
     private float tempoPontuacaoSalva;
     private int quantidadeDeZumbisMortos = 0;
@@ -80,5 +81,37 @@ public class ControlaInterface : MonoBehaviour
     public void Reiniciar()
     {
         SceneManager.LoadScene("game");
+    }
+
+    public void AparecerTextoChefeCriado()//mudar para indicar quantos chefes tem em cena
+    {
+        StartCoroutine(DesaparecerTexto(2,TextoChefeAparece));
+    }
+
+    /* Corrotina que faz o texto ir desaparecendo aos poucos
+    */
+    IEnumerator DesaparecerTexto(float tempoDeSumico, Text textoParaSumir)
+    {
+        /* - Garante que o texto está totalmente visível */
+        textoParaSumir.gameObject.SetActive(true);
+        Color corTexto = textoParaSumir.color;
+        corTexto.a = 1;
+        textoParaSumir.color = corTexto;
+
+        yield return new WaitForSeconds(1); //espera 1 segundo
+
+        float contador = 0;
+        while(textoParaSumir.color.a > 0)
+        {
+            contador += Time.deltaTime / tempoDeSumico; //razão baseado no tempo de sumiço
+            corTexto.a = Mathf.Lerp(1, 0, contador); //mathf tem haver com números
+            textoParaSumir.color = corTexto;
+
+            if(textoParaSumir.color.a <= 0)
+            {
+                textoParaSumir.gameObject.SetActive(false);
+            }
+            yield return null;
+        }
     }
 }

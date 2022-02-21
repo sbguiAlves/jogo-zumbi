@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class ControlaChefe : MonoBehaviour, IMatavel
 {
@@ -12,6 +13,11 @@ public class ControlaChefe : MonoBehaviour, IMatavel
     private MovimentoPersonagem movimentoChefe;
 
     public GameObject KitMedicoPrefab;
+    public GameObject ParticulaSangueZumbi;
+    public Slider SliderVidaChefe;
+
+    public Image ImagemSlider;
+    public Color CorDaVidaMaxima, CorDaVidaMinima;
 
     private void Start()
     {
@@ -22,6 +28,9 @@ public class ControlaChefe : MonoBehaviour, IMatavel
 
         animacaoChefe = GetComponent<AnimacaoPersonagem>();
         movimentoChefe = GetComponent<MovimentoPersonagem>();
+
+        SliderVidaChefe.maxValue = statusChefe.Vida;
+        AtualizarInterface();
     }
 
     private void Update()
@@ -51,18 +60,24 @@ public class ControlaChefe : MonoBehaviour, IMatavel
 
     void AtacaJogador()
     {
-        int dano = Random.Range(30,40);
+        int dano = Random.Range(30, 40);
         jogador.GetComponent<ControlaJogador>().TomarDano(dano);
     }
 
     public void TomarDano(int dano)
     {
         statusChefe.Vida -= dano;
+        AtualizarInterface();
 
-        if(statusChefe.Vida <= 0)
+        if (statusChefe.Vida <= 0)
         {
             Morrer();
         }
+    }
+
+    public void ParticulaSangue(Vector3 posicao, Quaternion rotacao)
+    {
+        Instantiate(ParticulaSangueZumbi, posicao, rotacao);
     }
 
     public void Morrer()
@@ -72,7 +87,20 @@ public class ControlaChefe : MonoBehaviour, IMatavel
         this.enabled = false;
         agente.enabled = false;
 
-        Instantiate(KitMedicoPrefab,transform.position,Quaternion.identity);
+        Instantiate(KitMedicoPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject, 2);
+    }
+
+    void AtualizarInterface()
+    {
+        SliderVidaChefe.value = statusChefe.Vida;
+
+        float porcentagemDaVida = (float)statusChefe.Vida / statusChefe.VidaInicial;
+        /*  - Interpolação linear: de uma cor para a outra
+            - De onde eu quero ir, para qual tom de cor deve chegar no limiar
+            - E a razão entre as duas
+        */
+        Color corDaVida = Color.Lerp(CorDaVidaMinima, CorDaVidaMaxima, porcentagemDaVida);
+        ImagemSlider.color = corDaVida;
     }
 }

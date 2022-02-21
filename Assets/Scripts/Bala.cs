@@ -29,14 +29,20 @@ public class Bala : MonoBehaviour
         /*  - Quando um Trigger bate em um objeto, o método a seguir é chamado, retornando ao qual objeto colidiu.            */ 
     void OnTriggerEnter(Collider objetoDeColisao)
     {
+        Quaternion rotacaoOpostaABala = Quaternion.LookRotation(-transform.forward);
+
         switch(objetoDeColisao.tag) //Utilizar tags nos objetos permite que a destruição aconteça apenas com tag "Inimigo"
         {
             case Tags.Inimigo:
-                objetoDeColisao.GetComponent<ControlaInimigo>().TomarDano(DanoDaBala);
+                ControlaInimigo inimigo = objetoDeColisao.GetComponent<ControlaInimigo>(); //melhorar isso, repetição de código
+                inimigo.TomarDano(DanoDaBala);
+                inimigo.ParticulaSangue(transform.position, rotacaoOpostaABala);
             break;
 
             case Tags.ChefeDeFase:
-                objetoDeColisao.GetComponent<ControlaChefe>().TomarDano(DanoDaBala);
+                ControlaChefe chefe = objetoDeColisao.GetComponent<ControlaChefe>();
+                chefe.TomarDano(DanoDaBala);
+                chefe.ParticulaSangue(transform.position, rotacaoOpostaABala);
             break;
         }
 

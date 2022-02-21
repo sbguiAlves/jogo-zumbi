@@ -6,6 +6,7 @@ public class ControlaInimigo : MonoBehaviour, IMatavel
 {
     public GameObject Jogador;
     public GameObject KitMedicoPrefab;
+    public GameObject ParticulaSangueZumbi;
 
     public AudioClip SomDeMorte;
 
@@ -120,6 +121,11 @@ public class ControlaInimigo : MonoBehaviour, IMatavel
         statusInimigo.Vida -= dano;
         if (statusInimigo.Vida <= 0)
             Morrer();
+    }
+
+    public void ParticulaSangue(Vector3 posicao, Quaternion rotacao)
+    {
+        Instantiate(ParticulaSangueZumbi, posicao, rotacao);
     }
 
     public void Morrer()

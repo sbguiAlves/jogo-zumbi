@@ -543,6 +543,8 @@ MonoBehaviour:
   Jogador: {fileID: 0}
   KitMedicoPrefab: {fileID: 1060151288946202, guid: 6150c6f66b7034ec5b3672478195682a,
     type: 3}
+  ParticulaSangueZumbi: {fileID: 8646221413006969101, guid: 293cdf88bb6e3a247be6b3bf5047ece6,
+    type: 3}
   SomDeMorte: {fileID: 8300000, guid: 3d531a0b39a5b9c48aab1cafb386dbe2, type: 3}
   meuGerador: {fileID: 0}
   TamanhoDaEsfera: 10
