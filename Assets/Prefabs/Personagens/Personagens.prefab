@@ -2512,6 +2512,7 @@ GameObject:
   - component: {fileID: 8961631074001300514}
   - component: {fileID: 6999977051619366984}
   - component: {fileID: 244632183380025500}
+  - component: {fileID: 4632992891921111214}
   m_Layer: 0
   m_Name: Personagens
   m_TagString: Jogador
@@ -2618,14 +2619,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bf788ec99baa5446aead73b001553ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Velocidade: 10
   MascaraChao:
     serializedVersion: 2
     m_Bits: 256
   TextoGameOver: {fileID: 0}
-  Vida: 100
   scriptControlaInterface: {fileID: 0}
   SomDeDano: {fileID: 8300000, guid: 524b5ecba9e9cd34d8890cc42b4c3a3c, type: 3}
+  statusJogador: {fileID: 4632992891921111214}
 --- !u!114 &8961631074001300514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2641,6 +2641,7 @@ MonoBehaviour:
   Bala: {fileID: 8396739279352712466, guid: 101705ac9c1ae2346acfc53b351ffecd, type: 3}
   CanoDaArma: {fileID: 1989342030}
   SomDoTiro: {fileID: 8300000, guid: df36c7865ab36af45a616c515d213d44, type: 3}
+  scriptControlaInterface: {fileID: 0}
 --- !u!114 &6999977051619366984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2665,6 +2666,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb7e5974399fd0d4289088149b39b69e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4632992891921111214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1884102019447498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 872eca1ebaf09cd4f99d053f2e1d502c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VidaInicial: 100
+  Vida: 0
+  VelocidadeJogador: 10
+  VelocidadeMinZumbi: 1
+  VelocidadeMaxZumbi: 5
+  DistanciaParaVagar: 10
+  DistanciaParaPerseguir: 2.5
 --- !u!1 &1938851689004064
 GameObject:
   m_ObjectHideFlags: 0

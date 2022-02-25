@@ -19,12 +19,14 @@ public class ControlaChefe : MonoBehaviour, IMatavel
     public Image ImagemSlider;
     public Color CorDaVidaMaxima, CorDaVidaMinima;
 
+    public int DanoMinimoChefe = 30, DanoMaximoChefe = 40;
+
     private void Start()
     {
         jogador = GameObject.FindWithTag(Tags.Jogador).transform;
         agente = GetComponent<NavMeshAgent>();
         statusChefe = GetComponent<Status>();
-        agente.speed = statusChefe.Velocidade;
+        agente.speed = statusChefe.VelocidadeMaxZumbi;
 
         animacaoChefe = GetComponent<AnimacaoPersonagem>();
         movimentoChefe = GetComponent<MovimentoPersonagem>();
@@ -60,7 +62,7 @@ public class ControlaChefe : MonoBehaviour, IMatavel
 
     void AtacaJogador()
     {
-        int dano = Random.Range(30, 40);
+        int dano = Random.Range(DanoMinimoChefe, DanoMaximoChefe);
         jogador.GetComponent<ControlaJogador>().TomarDano(dano);
     }
 

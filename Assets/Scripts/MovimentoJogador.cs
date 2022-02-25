@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*HERANCA: MovimentoJogador(filho) herda funções de MovimentoPersonagem(pai), assim como os métodos de MonoBehavior*/
-public class MovimentoJogador : MovimentoPersonagem 
+public class MovimentoJogador : MovimentoPersonagem
 {
     public void RotacaoJogador(LayerMask MascaraChao)
     {
         /*  - A variável do tipo Raio recebe a conversão de ponto para raio que sai da câmera e aponta para a posição do mouse */
         Ray raio = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Debug.DrawRay(raio.origin, raio.direction * 100, Color.red); // Debug que desenha a origem e a direção do raio na tela
+        //Debug.DrawRay(raio.origin, raio.direction * 100, Color.red); // Debug que desenha a origem e a direção do raio na tela
 
         /*  - Pega o raio gerado e pega a posição de onde está tocando
             - Physics.Raycast para gerar um raio, recebendo como parâmetro o raio, combiná-lo com uma variável de impacto e
@@ -17,6 +17,7 @@ public class MovimentoJogador : MovimentoPersonagem
             - A variável impacto não tem valor nenhum pq ela não tocou em nada, mas após a condição, ele receberá um valor 
         */
         RaycastHit impacto;
+
 
         if (Physics.Raycast(raio, out impacto, 100, MascaraChao)) //guardou o ponto em que o raio toca o chão
         {

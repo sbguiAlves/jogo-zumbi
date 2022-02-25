@@ -51,4 +51,15 @@ public class GeradorChefe : MonoBehaviour
         return posicaoDeMaiorDistancia;
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        int numeroDeSpawns = PosicoesPossiveisDeSpawn.Length;
+
+        for (int i = 0; i < numeroDeSpawns; i++)
+        {
+            Gizmos.DrawWireSphere(PosicoesPossiveisDeSpawn[i].position, 1);
+        }
+    }
+
 }

@@ -8,7 +8,9 @@ public class Status : MonoBehaviour
 
     [HideInInspector]
     public int Vida;
-    public float Velocidade = 5;
+    public float VelocidadeJogador = 10;
+    public float VelocidadeMinZumbi = 2;
+    public float VelocidadeMaxZumbi = 8;
 
     public float DistanciaParaVagar = 10;
     public float DistanciaParaPerseguir = 2.5f;
@@ -16,5 +18,12 @@ public class Status : MonoBehaviour
     void Awake()
     {
         Vida = VidaInicial;
+    }
+
+    public float AleatorizarVelocidade()
+    {
+        float VelocidadeZumbi = Random.Range(VelocidadeMinZumbi, VelocidadeMaxZumbi);
+
+        return VelocidadeZumbi;
     }
 }

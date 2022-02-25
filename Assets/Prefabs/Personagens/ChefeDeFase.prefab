@@ -643,7 +643,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VidaInicial: 10
   Vida: 0
-  Velocidade: 4
+  VelocidadeJogador: 5
+  VelocidadeMinZumbi: 1
+  VelocidadeMaxZumbi: 5
   DistanciaParaVagar: 10
   DistanciaParaPerseguir: 2.5
 --- !u!195 &6527749705663502938
@@ -688,6 +690,8 @@ MonoBehaviour:
   ImagemSlider: {fileID: 1229078669}
   CorDaVidaMaxima: {r: 0.33333334, g: 1, b: 0.33333334, a: 1}
   CorDaVidaMinima: {r: 1, g: 0.32941177, b: 0.32156864, a: 1}
+  DanoMinimoChefe: 20
+  DanoMaximoChefe: 30
 --- !u!1 &1065480718027956
 GameObject:
   m_ObjectHideFlags: 0

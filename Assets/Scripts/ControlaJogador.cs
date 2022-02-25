@@ -46,8 +46,11 @@ public class ControlaJogador : MonoBehaviour, IMatavel, ICuravel
     /*Update que roda no tempo fixo a cada 0.02s*/
     void FixedUpdate()
     {
-        meuMovimentoJogador.Movimentar(direcao, statusJogador.Velocidade);
+        meuMovimentoJogador.Movimentar(direcao, statusJogador.VelocidadeJogador);
+
+
         meuMovimentoJogador.RotacaoJogador(MascaraChao);
+
     }
 
     /* Uma boa prática é utilizar métodos para organizar e manter o código
@@ -75,7 +78,7 @@ public class ControlaJogador : MonoBehaviour, IMatavel, ICuravel
     {
         statusJogador.Vida += quantidadeDeCura;
 
-        if(statusJogador.Vida > statusJogador.VidaInicial)
+        if (statusJogador.Vida > statusJogador.VidaInicial)
         {
             statusJogador.Vida = statusJogador.VidaInicial;
         }
