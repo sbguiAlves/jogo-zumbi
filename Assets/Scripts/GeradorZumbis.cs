@@ -10,17 +10,17 @@ public class GeradorZumbis : MonoBehaviour
     public Transform[] PosicoesSpawnParaZumbis;
 
     private GameObject jogador;
-    private int quantidadeMaximaZumbisVivos = 2, quantidadeDeZumbisVivos;
+    private int quantidadeMaximaZumbisVivos = 2, quantidadeDeZumbisVivos, incrementarZumbisVivos = 2;
     private float distanciaDeSpawn = 1f; /*Tamanho da área circular de ataque do zumbi*/
     private float contadorTempo = 0;
-    private float distanciaDoJogadorParaSpawn = 5;
+    private float distanciaDoJogadorParaSpawn = 10f;
     private float contadorAumentarDificuldade, tempoProximoAumentoDeDificuldade = 20; //em segundos
 
     private void Start()
     {
         jogador = GameObject.FindWithTag(Tags.Jogador);
         contadorAumentarDificuldade = tempoProximoAumentoDeDificuldade;
-        for (int i = 0; i < quantidadeMaximaZumbisVivos; i++)
+        for (int i = 0; i < quantidadeMaximaZumbisVivos; i++) //vai gerar 2 zumbis em cada spawn
         {
             StartCoroutine(GerarNovoZumbi());
         }
@@ -37,6 +37,7 @@ public class GeradorZumbis : MonoBehaviour
 
     void Update()
     {
+        Debug.LogFormat("Máximo de zumbis: {0}\nVivos: {1}", quantidadeMaximaZumbisVivos, quantidadeDeZumbisVivos);
         bool possoGerarZumbisPelaDistancia = Vector3.Distance(transform.position, jogador.transform.position) >
             distanciaDoJogadorParaSpawn;
 
@@ -54,10 +55,9 @@ public class GeradorZumbis : MonoBehaviour
 
         //contador alternativo
         if (Time.timeSinceLevelLoad > contadorAumentarDificuldade)
-        {       // A LÓGICA TÁ AQUI
-            quantidadeMaximaZumbisVivos += PosicoesSpawnParaZumbis.Length; //tem que aumentar pelo numero de spawns
-
-            Debug.LogFormat("Máximo de zumbis: {0}\nQuantidade Vida: {1}", quantidadeMaximaZumbisVivos, quantidadeDeZumbisVivos);
+        {       
+            Debug.Log("Aumentou a dificuldade!");
+            quantidadeMaximaZumbisVivos += incrementarZumbisVivos; 
 
             contadorAumentarDificuldade = Time.timeSinceLevelLoad +
                 tempoProximoAumentoDeDificuldade;
@@ -86,9 +86,11 @@ public class GeradorZumbis : MonoBehaviour
     */
     IEnumerator GerarNovoZumbi()
     {
-        foreach (Transform gerador in PosicoesSpawnParaZumbis)
+        //foreach (Transform gerador in PosicoesSpawnParaZumbis)
+        for (int i = 0; i < PosicoesSpawnParaZumbis.Length; i++)
         {
             Vector3 posicaoDeCriacao = AleatorizarPosicao();
+            Transform gerador = PosicoesSpawnParaZumbis[i];
 
             /* - Quando o zumbi nascer, a condição vai testar se há
             outro zumbi no mesmo local a partir da colisão. Se houver,

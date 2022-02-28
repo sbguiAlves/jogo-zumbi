@@ -60,12 +60,12 @@ public class ControlaJogador : MonoBehaviour, IMatavel, ICuravel
     */
     public void TomarDano(int dano)
     {
-        statusJogador.Vida -= dano;
+        statusJogador.VidaJogador -= dano;
         scriptControlaInterface.AtualizarSliderVidaJogador();
         /* PlayOneShot: toca o som apenas uma vez */
         ControlaAudio.instancia.PlayOneShot(SomDeDano);
 
-        if (statusJogador.Vida <= 0)
+        if (statusJogador.VidaJogador <= 0)
             Morrer();
     }
 
@@ -76,11 +76,11 @@ public class ControlaJogador : MonoBehaviour, IMatavel, ICuravel
 
     public void CurarVida(int quantidadeDeCura)
     {
-        statusJogador.Vida += quantidadeDeCura;
+        statusJogador.VidaJogador += quantidadeDeCura;
 
-        if (statusJogador.Vida > statusJogador.VidaInicial)
+        if (statusJogador.VidaJogador > statusJogador.VidaInicialJogador)
         {
-            statusJogador.Vida = statusJogador.VidaInicial;
+            statusJogador.VidaJogador = statusJogador.VidaInicialJogador;
         }
 
         scriptControlaInterface.AtualizarSliderVidaJogador();

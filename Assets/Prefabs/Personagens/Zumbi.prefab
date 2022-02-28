@@ -600,11 +600,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 872eca1ebaf09cd4f99d053f2e1d502c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VidaInicial: 1
-  Vida: 0
+  VidaInicialJogador: 100
   VelocidadeJogador: 10
+  VidaInicialChefe: 100
+  VidaInicialZumbi: 5
+  VidaJogador: 0
+  VidaChefe: 0
+  VidaZumbi: 0
   VelocidadeMinZumbi: 2
-  VelocidadeMaxZumbi: 8
+  VelocidadeMaxZumbi: 6
   DistanciaParaVagar: 10
   DistanciaParaPerseguir: 2.5
 --- !u!1 &1065480718027956

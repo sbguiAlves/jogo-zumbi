@@ -641,8 +641,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 872eca1ebaf09cd4f99d053f2e1d502c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VidaInicial: 10
-  Vida: 0
+  VidaInicialJogador: 100
+  VidaInicialChefe: 50
+  VidaInicialZumbi: 5
+  VidaJogador: 0
+  VidaChefe: 0
+  VidaZumbi: 0
   VelocidadeJogador: 5
   VelocidadeMinZumbi: 1
   VelocidadeMaxZumbi: 5
@@ -687,6 +691,7 @@ MonoBehaviour:
   ParticulaSangueZumbi: {fileID: 8646221413006969101, guid: 293cdf88bb6e3a247be6b3bf5047ece6,
     type: 3}
   SliderVidaChefe: {fileID: 117504625}
+  SomDeMorte: {fileID: 8300000, guid: 3d531a0b39a5b9c48aab1cafb386dbe2, type: 3}
   ImagemSlider: {fileID: 1229078669}
   CorDaVidaMaxima: {r: 0.33333334, g: 1, b: 0.33333334, a: 1}
   CorDaVidaMinima: {r: 1, g: 0.32941177, b: 0.32156864, a: 1}

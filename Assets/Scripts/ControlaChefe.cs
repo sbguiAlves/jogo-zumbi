@@ -15,6 +15,7 @@ public class ControlaChefe : MonoBehaviour, IMatavel
     public GameObject KitMedicoPrefab;
     public GameObject ParticulaSangueZumbi;
     public Slider SliderVidaChefe;
+    public AudioClip SomDeMorte;
 
     public Image ImagemSlider;
     public Color CorDaVidaMaxima, CorDaVidaMinima;
@@ -31,7 +32,7 @@ public class ControlaChefe : MonoBehaviour, IMatavel
         animacaoChefe = GetComponent<AnimacaoPersonagem>();
         movimentoChefe = GetComponent<MovimentoPersonagem>();
 
-        SliderVidaChefe.maxValue = statusChefe.Vida;
+        SliderVidaChefe.maxValue = statusChefe.VidaChefe;
         AtualizarInterface();
     }
 
@@ -68,10 +69,10 @@ public class ControlaChefe : MonoBehaviour, IMatavel
 
     public void TomarDano(int dano)
     {
-        statusChefe.Vida -= dano;
+        statusChefe.VidaChefe -= dano;
         AtualizarInterface();
 
-        if (statusChefe.Vida <= 0)
+        if (statusChefe.VidaChefe <= 0)
         {
             Morrer();
         }
@@ -88,6 +89,7 @@ public class ControlaChefe : MonoBehaviour, IMatavel
         movimentoChefe.Morrer();
         this.enabled = false;
         agente.enabled = false;
+        ControlaAudio.instancia.PlayOneShot(SomDeMorte);
 
         Instantiate(KitMedicoPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject, 2);
@@ -95,9 +97,9 @@ public class ControlaChefe : MonoBehaviour, IMatavel
 
     void AtualizarInterface()
     {
-        SliderVidaChefe.value = statusChefe.Vida;
+        SliderVidaChefe.value = statusChefe.VidaChefe;
 
-        float porcentagemDaVida = (float)statusChefe.Vida / statusChefe.VidaInicial;
+        float porcentagemDaVida = (float)statusChefe.VidaChefe / statusChefe.VidaInicialChefe;
         /*  - Interpolação linear: de uma cor para a outra
             - De onde eu quero ir, para qual tom de cor deve chegar no limiar
             - E a razão entre as duas

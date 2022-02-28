@@ -130,8 +130,8 @@ public class ControlaInimigo : MonoBehaviour, IMatavel
 
     public void TomarDano(int dano)
     {
-        statusInimigo.Vida -= dano;
-        if (statusInimigo.Vida <= 0)
+        statusInimigo.VidaZumbi -= dano;
+        if (statusInimigo.VidaZumbi <= 0)
             Morrer();
     }
 

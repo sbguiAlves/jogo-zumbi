@@ -9,7 +9,9 @@ public class GeradorChefe : MonoBehaviour
 
     public float tempoEntreGeracoes = 60;
     public GameObject ChefePrefab;
+    public AudioClip AlertaDeChefao;
     public Transform[] PosicoesPossiveisDeSpawn;
+
 
     private Transform jogador;
 
@@ -26,6 +28,7 @@ public class GeradorChefe : MonoBehaviour
         if (Time.timeSinceLevelLoad > tempoParaProximaGeracao)
         {
             Vector3 posicaoDeCriacao = CalcularPosicaoMaisDistanteDoJogador();
+            ControlaAudio.instancia.PlayOneShot(AlertaDeChefao);
             Instantiate(ChefePrefab, posicaoDeCriacao, Quaternion.identity);
             scriptControlaInterface.AparecerTextoChefeCriado();
             tempoParaProximaGeracao = Time.timeSinceLevelLoad + tempoEntreGeracoes;

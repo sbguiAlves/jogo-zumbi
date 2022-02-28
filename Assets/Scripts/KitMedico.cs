@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class KitMedico : MonoBehaviour
 {
-    private int quantidadeDeCura = 15; //melhor deixar private pra definir um valor só de cura pro kit
+    private int quantidadeDeCura = 20; //melhor deixar private pra definir um valor só de cura pro kit
     private int tempoDeDestruicao = 5;
+
+    public AudioClip SomDeItemColetado;
 
     private void Start()
     {
@@ -17,6 +19,7 @@ public class KitMedico : MonoBehaviour
         if (objetoDeColisao.tag == Tags.Jogador)
         {
             objetoDeColisao.GetComponent<ControlaJogador>().CurarVida(quantidadeDeCura);
+            ControlaAudio.instancia.PlayOneShot(SomDeItemColetado);
             Destroy(gameObject);
         }
     }

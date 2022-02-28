@@ -6,8 +6,7 @@ using UnityEngine.SceneManagement;
 public class ControlaMenu : MonoBehaviour
 {
     public GameObject BotaoSair;
-    public GameObject BotoesMenuPrincipal;
-    public GameObject MenuSelecaoDeFase;
+    //public GameObject BotoesMenuPrincipal;
 
     private void Start()
     {
@@ -18,40 +17,17 @@ public class ControlaMenu : MonoBehaviour
         #if UNITY_STANDALONE || UNITY_EDITOR
             BotaoSair.SetActive(true);
         #endif
-
     }
 
-    public void SelecionarFase()
-    {
-        BotoesMenuPrincipal.SetActive(false);
-        MenuSelecaoDeFase.SetActive(true);
-    }
-
-    public void VoltarMenu()
-    {
-        BotoesMenuPrincipal.SetActive(true);
-        MenuSelecaoDeFase.SetActive(false);
-    }
-
-    public void JogarFase1()
+    public void Jogar()
     {
         StartCoroutine(MudarCena("fase1"));
-    }
-
-    public void JogarFase2() //fazer inapertável por enquanto
-    {
-        StartCoroutine(MudarCena("fase2"));
-    }
-
-    public void JogarFase3()//fazer inapertável por enquanto
-    {
-        StartCoroutine(MudarCena("fase3"));
     }
 
     IEnumerator MudarCena(string name)
     {
         /*Pra dar um tempo pro som tocar e dps entrar na cena*/
-        yield return new WaitForSecondsRealtime(0.2f);
+        yield return new WaitForSecondsRealtime(0.5f);
         SceneManager.LoadScene(name);
     }
 

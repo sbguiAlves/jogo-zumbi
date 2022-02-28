@@ -34,7 +34,7 @@ public class ControlaInterface : MonoBehaviour
     {
         scriptControlaJogador = GameObject.FindWithTag(Tags.Jogador).GetComponent<ControlaJogador>();
 
-        SliderVidaJogador.maxValue = scriptControlaJogador.statusJogador.Vida;
+        SliderVidaJogador.maxValue = scriptControlaJogador.statusJogador.VidaJogador;
         AtualizarSliderVidaJogador(); //atualiza pela quantidade de vida do jogador sem ter que mudar no Inspector
         Time.timeScale = 1;
 
@@ -45,7 +45,7 @@ public class ControlaInterface : MonoBehaviour
 
     public void AtualizarSliderVidaJogador()
     {
-        SliderVidaJogador.value = scriptControlaJogador.statusJogador.Vida;
+        SliderVidaJogador.value = scriptControlaJogador.statusJogador.VidaJogador;
     }
 
     public void AtualizarQuantidadeDeZumbisMortos()

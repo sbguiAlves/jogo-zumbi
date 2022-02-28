@@ -4,20 +4,26 @@ using UnityEngine;
 
 public class Status : MonoBehaviour
 {
-    public int VidaInicial = 100;
+    public int VidaInicialJogador = 100;
+    public float VelocidadeJogador = 10;
+    
+    public int VidaInicialChefe = 100;
+    public int VidaInicialZumbi = 5;
 
     [HideInInspector]
-    public int Vida;
-    public float VelocidadeJogador = 10;
+    public int VidaJogador, VidaChefe, VidaZumbi;
+
     public float VelocidadeMinZumbi = 2;
-    public float VelocidadeMaxZumbi = 8;
+    public float VelocidadeMaxZumbi = 6;
 
     public float DistanciaParaVagar = 10;
-    public float DistanciaParaPerseguir = 2.5f;
+    public float DistanciaParaPerseguir = 5f;
 
     void Awake()
     {
-        Vida = VidaInicial;
+        VidaJogador = VidaInicialJogador;
+        VidaChefe = VidaInicialChefe;
+        VidaZumbi = VidaInicialZumbi;
     }
 
     public float AleatorizarVelocidade()
