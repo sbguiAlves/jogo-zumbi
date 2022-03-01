@@ -37,7 +37,7 @@ public class GeradorZumbis : MonoBehaviour
 
     void Update()
     {
-        Debug.LogFormat("Máximo de zumbis: {0}\nVivos: {1}", quantidadeMaximaZumbisVivos, quantidadeDeZumbisVivos);
+        //Debug.LogFormat("Máximo de zumbis: {0}\nVivos: {1}", quantidadeMaximaZumbisVivos, quantidadeDeZumbisVivos);
         bool possoGerarZumbisPelaDistancia = Vector3.Distance(transform.position, jogador.transform.position) >
             distanciaDoJogadorParaSpawn;
 

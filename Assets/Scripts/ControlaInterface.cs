@@ -18,6 +18,8 @@ public class ControlaInterface : MonoBehaviour
     public Text TextoChefeAparece;
     public Text TextoTimer;
 
+    [HideInInspector]
+    public float TempoObjetivo;
     public float TempoObjetivoEmMinutos = 5;
 
     private ControlaJogador scriptControlaJogador;
@@ -26,12 +28,15 @@ public class ControlaInterface : MonoBehaviour
     private bool isOver = false;
 
     public AudioSource MusicaDeFundo;
-    public AudioSource MusicaDeGameOver;
+
+    public AudioClip SomDeGameOver;
+    public AudioClip SomDeVitoria;
 
     /* Boa prática: começar variaveis com o tipo dela (quando náo é float, int, etc.) */
 
     void Start()
     {
+        TempoObjetivo = TempoObjetivoEmMinutos;
         scriptControlaJogador = GameObject.FindWithTag(Tags.Jogador).GetComponent<ControlaJogador>();
 
         SliderVidaJogador.maxValue = scriptControlaJogador.statusJogador.VidaJogador;
@@ -58,17 +63,19 @@ public class ControlaInterface : MonoBehaviour
     {
         MusicaDeFundo.Stop();
 
-        MusicaDeGameOver.time = 1;
-        MusicaDeGameOver.Play();
         Time.timeScale = 0; /*Jogo é pausado */
 
-        if (isOver)
+        if (isOver == true)
         {
+            ControlaAudio.instancia.PlayOneShot(SomDeVitoria);
+
             PainelDeVitoria.SetActive(true);
             PainelDeDerrota.SetActive(false);
         }
-        else if (!isOver)
+        else if (isOver == false)
         {
+            ControlaAudio.instancia.PlayOneShot(SomDeGameOver);
+
             PainelDeDerrota.SetActive(true);
             TextoTimer.gameObject.SetActive(false);
 
@@ -86,9 +93,8 @@ public class ControlaInterface : MonoBehaviour
 
     public void TempoParaSobreviver()
     {
-        float sobrevivenciaEmSegundos = TempoObjetivoEmMinutos * 60;
-
-        if (Time.timeSinceLevelLoad == sobrevivenciaEmSegundos)
+        float sobrevivenciaEmSegundos = TempoObjetivo * 60;
+        if (Time.timeSinceLevelLoad >= sobrevivenciaEmSegundos)
         {
             GameOver();
             isOver = true;
@@ -154,6 +160,9 @@ public class ControlaInterface : MonoBehaviour
     {
         MusicaDeFundo.Stop();
         yield return new WaitForSecondsRealtime(0.5f);
+
+        isOver=false;
+        TempoObjetivo = TempoObjetivoEmMinutos;
         SceneManager.LoadScene(name);
     }
 
